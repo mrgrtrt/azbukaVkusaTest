@@ -17,7 +17,6 @@ public class Data {
                 {false, "ivanovaritavitalevna@gmail.com", "pass", "pass", "name", "", "", false, true},
                 {false, "ivanovaritavitalevna@gmail.com", "password", "passwordword", "name", "", "", false, true},
                 {false, "ivanovaritavitalevna@gmail.com", "password", "password", "name", "", "", false, true}
-                //{true, "m.kachanov@petromix.ru", "password", "password", "Maxim", "Takoy", "Odin", false, true}
         };
     }
 

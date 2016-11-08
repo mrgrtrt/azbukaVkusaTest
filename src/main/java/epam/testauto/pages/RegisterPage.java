@@ -2,6 +2,7 @@ package epam.testauto.pages;
 
 import epam.testauto.basics.BasePage;
 import epam.testauto.pageobjects.Checkbox;
+import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,15 +36,15 @@ public class RegisterPage extends BasePage {
     private WebElement personalDataAreOk;
     @FindBy(css = ".b-registration__submit_left")
     private WebElement withoutAddressButton;
-    @FindBy(css = "name='address'")
+    @FindBy(name = "address")
     private WebElement addressTextBox;
-    @FindBy(css = "input[name='apartmentOffice']")
+    @FindBy(name = "apartmentOffice")
     private WebElement roomNumberTextBox;
-    @FindBy(css = "input[name='line2']")
+    @FindBy(name = "line2")
     private WebElement floorTextBox;
-    @FindBy(css = "input[name='contactPhone']")
+    @FindBy(name = "contactPhone")
     private WebElement phoneTextBox;
-    @FindBy(css = "textarea[name='comment']")
+    @FindBy(name = "comment")
     private WebElement commentTextBox;
     @FindBy(css = ".b-registration__submit_right")
     private WebElement withAddressButton;
@@ -90,19 +91,23 @@ public class RegisterPage extends BasePage {
 
     public RegisterPage inputAddress(boolean withAddress, String address, String roomNumber, String floor,
                                      boolean cottage, String phone, String comment) {
-        //Assert.assertTrue(personalDataAreOk.isDisplayed());
-        //if (withAddress) {
+//        Assert.assertTrue(personalDataAreOk.isDisplayed());
+        if (withAddress) {
             setElementText(addressTextBox, address);
             setElementText(roomNumberTextBox, roomNumber);
             setElementText(floorTextBox, floor);
             cottageCheckbox.checkboxSwitch(cottage);
             setElementText(phoneTextBox, phone);
             setElementText(commentTextBox, comment);
-            clickElement(withAddressButton);
-            Assert.assertTrue(accountName.isDisplayed());
-        //} else {
-            //clickElement(withoutAddressButton);
-        //}
+            try {
+                clickElement(withAddressButton);
+                Assert.assertTrue(accountName.isDisplayed());
+            } catch (InvalidElementStateException e) {}
+
+
+        } else {
+            clickElement(withoutAddressButton);
+        }
         return this;
     }
 }

@@ -33,8 +33,9 @@ public class AVSiteTest extends SetupDriver {
     @Test(priority = 2, dataProviderClass = Data.class, dataProvider = "address")
     public void address(boolean withAddress, String address, String roomNumber, String floor,
                         boolean cottage, String phone, String comment) {
-        registerPage.inputAddress(withAddress, address, roomNumber,
-                                  floor, cottage, phone, comment);
+        RegisterPage registerPage = new RegisterPage(driver)
+                .inputAddress(withAddress, address, roomNumber,
+                              floor, cottage, phone, comment);
     }
 
 }
