@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestSuite" verbose="1" >
+    <parameter name="browserType" value="firefox"/>
+    <parameter name="indexPageUrl" value="https://av.ru/login/register"/>
+    <test name="AVSiteTesting">
+        <classes>
+            <class name="epam.testauto.AVSiteTest"/>
+        </classes>
+    </test>
+</suite>
