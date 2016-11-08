@@ -35,7 +35,7 @@ public class RegisterPage extends BasePage {
     private WebElement personalDataAreOk;
     @FindBy(css = ".b-registration__submit_left")
     private WebElement withoutAddressButton;
-    @FindBy(css = "textarea[name='address']")
+    @FindBy(css = "name='address'")
     private WebElement addressTextBox;
     @FindBy(css = "input[name='apartmentOffice']")
     private WebElement roomNumberTextBox;
@@ -78,35 +78,31 @@ public class RegisterPage extends BasePage {
 
     @Step("Submit login form and check if it's right")
     public RegisterPage submitRegisterForm(boolean isCorrect, boolean agreeConditions) {
-        String pageUrl = "https://av.ru/login/register";
         clickElement(registrationButton);
         if (!agreeConditions) {
             Assert.assertEquals(errorMessageText.getText(), errorMessage);
         }
-        if (!isCorrect) {
-            Assert.assertEquals(pageUrl, driver.getCurrentUrl());
+        if (isCorrect) {
+            Assert.assertTrue(personalDataAreOk.isDisplayed());
         }
         return this;
     }
 
     public RegisterPage inputAddress(boolean withAddress, String address, String roomNumber, String floor,
                                      boolean cottage, String phone, String comment) {
-        try {
-            Assert.assertTrue(personalDataAreOk.isDisplayed());
-            if (!withAddress) {
-                clickElement(withoutAddressButton);
-            } else {
-                setElementText(addressTextBox, address);
-                setElementText(roomNumberTextBox, roomNumber);
-                setElementText(floorTextBox, floor);
-                cottageCheckbox.checkboxSwitch(cottage);
-                setElementText(phoneTextBox, phone);
-                setElementText(commentTextBox, comment);
-                clickElement(withAddressButton);
-                Assert.assertTrue(accountName.isDisplayed());
-            }
-        }
-        catch (NullPointerException e) {}
+        //Assert.assertTrue(personalDataAreOk.isDisplayed());
+        //if (withAddress) {
+            setElementText(addressTextBox, address);
+            setElementText(roomNumberTextBox, roomNumber);
+            setElementText(floorTextBox, floor);
+            cottageCheckbox.checkboxSwitch(cottage);
+            setElementText(phoneTextBox, phone);
+            setElementText(commentTextBox, comment);
+            clickElement(withAddressButton);
+            Assert.assertTrue(accountName.isDisplayed());
+        //} else {
+            //clickElement(withoutAddressButton);
+        //}
         return this;
     }
 }
